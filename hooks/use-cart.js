@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import { initiateCheckout } from "../lib/payments";
 import products from "../products.json";
 
@@ -11,6 +11,20 @@ export const cartContext = createContext();
 export function useCartState() {
   const [cart, updateCart] = useState(defaultCart);
 
+  useEffect(() => {
+    const stateFromStorage = window.localStorage.getItem("product_cart");
+    const data = stateFromStorage && JSON.parse(stateFromStorage);
+    console.log(data);
+    if (data) {
+      updateCart(data);
+    }
+  }, []);
+
+  useEffect(() => {
+    const data = JSON.stringify(cart);
+    window.localStorage.setItem("product_cart", data);
+  }, [cart]);
+
   const cartItems = Object.keys(cart.products).map((key) => {
     const product = products.find(({ id }) => `${id}` === `${key}`);
     return {
@@ -20,7 +34,7 @@ export function useCartState() {
   });
 
   const subtotal = cartItems.reduce((accumulator, { precio, quantity }) => {
-    return accumulator + (precio * quantity);
+    return accumulator + precio * quantity;
   }, 0);
 
   const totalItems = cartItems.reduce((accumulator, { quantity }) => {
