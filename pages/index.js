@@ -1,5 +1,6 @@
 import { useState, createContext, useContext } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { useCart } from "../hooks/use-cart";
 import products from "../products.json";
 
@@ -29,7 +30,9 @@ export default function Home() {
                   alt={product.Name}
                 />
                 <div className="p-4 my-auto space-y-3">
-                  <h1 className="font-semibold text-2xl">{product.Name}</h1>
+                  <Link href={`/products/${product.id}`}>
+                    <a className="font-semibold text-2xl">{product.Name}</a>
+                  </Link>
                   <p className="font-semibold">Precio: ${product.price}</p>
                   <button
                     className="bg-indigo-600 focus:outline-none font-semibold duration-300 transform hover:scale-105 text-indigo-100 rounded px-4 py-2"
