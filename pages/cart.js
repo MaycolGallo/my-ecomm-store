@@ -3,20 +3,72 @@ import products from "../products.json";
 import { useCart } from "../hooks/use-cart";
 
 const cart = () => {
-  const { cartItems, checkout } = useCart();
+  const { cartItems, checkout, updateItem } = useCart();
   const data = cartItems.map((item) => {
     const product = products.find(({ id }) => id === item.id);
+    console.log(product)
+    const Quantity = () => {
+      function handleSubmit(e) {
+        e.preventDefault();
+        const { currentTarget } = e;
+        const inputs = Array.from(currentTarget.elements);
+        const quantity = inputs.find((input) => input.name === "quantity")?.value;
+        if (quantity == 0) {
+        }
+        updateItem({
+          id: item.id,
+          quantity: quantity && parseInt(quantity),
+        });
+      }
+      return (
+        <form onSubmit={handleSubmit} className="inline-flex items-center justify-center">
+          <input
+            type="number"
+            name="quantity"
+            min={0}
+            defaultValue={item.quantity}
+            className="focus:outline-none ring-2 ring-blue-200"
+          />
+          <button className="bg-gray-800 text-sm text-gray-100 rounded px-2 py-1 " onClick={()=>{console.log('click')}}>Update</button>
+        </form>
+      );
+    };
+
     return {
       ...item,
+      quantity: <Quantity />,
       total: item.quantity * item.precio,
       title: product.Name,
     };
   });
+  const Body = ({data})=>{
+      return (
+        data.map(item=>(
+          <tr key={item.id}>
+        <td className="px-6 py-4 whitespace-nowrap text-lg font-medium text-gray-900">
+          {item.title}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+          {item.quantity}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+          {item.precio}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+          ${item.total}
+        </td>
+      </tr>
+        ))
+      )
+  }
+  const Empty = ()=>{
+    return(<h1>Empty cart</h1>)
+  }
 
   return (
     <div className=" my-4 md:mt-10">
       <Head>
-        <title>Carrito de compras | Warehouse</title>
+        <title>Mi Carrito | Warehouse</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="mx-3 md:mx-5 p-3">
@@ -68,22 +120,7 @@ const cart = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {data.map((item) => (
-                        <tr key={item.id}>
-                          <td className="px-6 py-4 whitespace-nowrap text-lg font-medium text-gray-900">
-                            {item.title}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-lg text-gray-500">
-                            {item.quantity}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-lg text-gray-500">
-                            {item.precio}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-lg text-gray-500">
-                            ${item.total}
-                          </td>
-                        </tr>
-                      ))}
+                      {data ? <Body data={data}/>:<Empty />}
                     </tbody>
                   </table>
                 </div>
