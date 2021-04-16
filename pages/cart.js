@@ -6,14 +6,16 @@ const cart = () => {
   const { cartItems, checkout, updateItem } = useCart();
   const data = cartItems.map((item) => {
     const product = products.find(({ id }) => id === item.id);
-    console.log(product)
     const Quantity = () => {
       function handleSubmit(e) {
         e.preventDefault();
         const { currentTarget } = e;
         const inputs = Array.from(currentTarget.elements);
-        const quantity = inputs.find((input) => input.name === "quantity")?.value;
+        const quantity = inputs.find((input) => input.name === "quantity")
+          ?.value;
         if (quantity == 0) {
+          currentTarget.classList.add('bg-blue-500')
+          console.log(currentTarget.elements)
         }
         updateItem({
           id: item.id,
@@ -21,7 +23,10 @@ const cart = () => {
         });
       }
       return (
-        <form onSubmit={handleSubmit} className="inline-flex items-center justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="inline-flex items-center justify-center"
+        >
           <input
             type="number"
             name="quantity"
@@ -29,7 +34,14 @@ const cart = () => {
             defaultValue={item.quantity}
             className="focus:outline-none ring-2 ring-blue-200"
           />
-          <button className="bg-gray-800 text-sm text-gray-100 rounded px-2 py-1 " onClick={()=>{console.log('click')}}>Update</button>
+          <button
+            className="bg-gray-800 text-sm text-gray-100 rounded px-2 py-1 "
+            onClick={() => {
+              console.log();
+            }}
+          >
+            Update
+          </button>
         </form>
       );
     };
@@ -41,10 +53,10 @@ const cart = () => {
       title: product.Name,
     };
   });
-  const Body = ({data})=>{
-      return (
-        data.map(item=>(
-          <tr key={item.id}>
+  console.log(data);
+  const Body = ({ data }) => {
+    return data.map((item) => (
+      <tr key={item.id}>
         <td className="px-6 py-4 whitespace-nowrap text-lg font-medium text-gray-900">
           {item.title}
         </td>
@@ -58,12 +70,26 @@ const cart = () => {
           ${item.total}
         </td>
       </tr>
-        ))
-      )
-  }
-  const Empty = ()=>{
-    return(<h1>Empty cart</h1>)
-  }
+    ));
+  };
+  const Empty = () => {
+    return (
+      <tr>
+        <td
+          colSpan="8"
+          className="w-full px-6 space-y-3 py-4 whitespace-nowrap  bg-gray-100"
+        >
+          <img
+            className="w-12 h-12 mx-auto"
+            src="https://www.svgrepo.com/show/17356/empty-cart.svg"
+          />
+          <h1 className="text-2xl font-semibold text-center">
+            Tu Carrito esta vacio
+          </h1>
+        </td>
+      </tr>
+    );
+  };
 
   return (
     <div className=" my-4 md:mt-10">
@@ -120,7 +146,8 @@ const cart = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {data ? <Body data={data}/>:<Empty />}
+                      {/*data && <Body data={data} /> */}
+                      {data.length === 0 ? <Empty /> : <Body data={data} />}
                     </tbody>
                   </table>
                 </div>
@@ -130,7 +157,7 @@ const cart = () => {
           <div className="my-10 text-center">
             <button
               onClick={checkout}
-              className="bg-purple-500 focus:outline-none font-semibold duration-300 transform hover:scale-105 text-purple-100 rounded text-2xl px-6 py-3"
+              className="bg-purple-500 shadow focus:outline-none font-semibold duration-100 transform hover:scale-105 text-purple-100 rounded text-2xl px-6 py-3"
             >
               Checkout
             </button>
@@ -142,10 +169,4 @@ const cart = () => {
 };
 
 export default cart;
-{
-  /* show toltip de added
-    function bye(){
-	a.classNameList.remove("show")
-    setTimeout(function(){ a.classNameList.add("show") }, 3000);
-}*/
-}
+

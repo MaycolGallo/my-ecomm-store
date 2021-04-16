@@ -59,24 +59,26 @@ export function useCartState() {
     });
   };
 
-  function updateItem({id,quantity}){
+  function updateItem({ id, quantity }) {
     updateCart((prev) => {
       let cartState = { ...prev };
 
       if (cartState.products[id]) {
         cartState.products[id].quantity = quantity;
-      } 
-      return cartState;   
-    })
+      }
+      return cartState;
+    });
   }
 
   function checkout() {
     initiateCheckout({
       lineItems: cartItems.map((item) => {
-        return {
-          price: item.id,
-          quantity: item.quantity,
-        };
+        if(item){
+          return {
+            price: item.id,
+            quantity: item.quantity,
+          }
+        }
       }),
     });
   }
