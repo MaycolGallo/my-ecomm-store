@@ -14,7 +14,6 @@ export function useCartState() {
   useEffect(() => {
     const stateFromStorage = window.localStorage.getItem("product_cart");
     const data = stateFromStorage && JSON.parse(stateFromStorage);
-    console.log(data);
     if (data) {
       updateCart(data);
     }
@@ -65,6 +64,9 @@ export function useCartState() {
 
       if (cartState.products[id]) {
         cartState.products[id].quantity = quantity;
+      }
+      if (cartState.products[id].quantity == 0) {
+        delete cartState.products[id]
       }
       return cartState;
     });

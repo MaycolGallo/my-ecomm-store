@@ -11,12 +11,8 @@ const cart = () => {
         e.preventDefault();
         const { currentTarget } = e;
         const inputs = Array.from(currentTarget.elements);
-        const quantity = inputs.find((input) => input.name === "quantity")
-          ?.value;
-        if (quantity == 0) {
-          currentTarget.classList.add('bg-blue-500')
-          console.log(currentTarget.elements)
-        }
+        const quantity = inputs.find((input) => input.name === "quantity")?.value;
+
         updateItem({
           id: item.id,
           quantity: quantity && parseInt(quantity),
@@ -146,7 +142,6 @@ const cart = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {/*data && <Body data={data} /> */}
                       {data.length === 0 ? <Empty /> : <Body data={data} />}
                     </tbody>
                   </table>
@@ -157,7 +152,7 @@ const cart = () => {
           <div className="my-10 text-center">
             <button
               onClick={checkout}
-              className="bg-purple-500 shadow focus:outline-none font-semibold duration-100 transform hover:scale-105 text-purple-100 rounded text-2xl px-6 py-3"
+              className="bg-gradient-to-r from-indigo-400 to-purple-500 shadow focus:outline-none font-semibold duration-100 transform hover:scale-105 text-purple-100 rounded text-2xl px-6 py-3"
             >
               Checkout
             </button>
