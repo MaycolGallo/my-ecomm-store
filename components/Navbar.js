@@ -12,7 +12,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="flex items-center flex-wrap bg-gray-800 p-3">
+      <nav className="flex items-center px-1 sm:px-8 flex-wrap bg-gray-800 p-3">
         <Link href="/">
           <a className="inline-flex items-center p-2 mr-4 ">
             <span className="text-xl text-white font-bold tracking-wide">

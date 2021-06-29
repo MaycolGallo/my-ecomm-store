@@ -40,7 +40,7 @@ export function useCartState() {
     return accumulator + quantity;
   }, 0);
 
-  console.log("holo", cartItems);
+  // console.log("items", cartItems);
 
   const addToCart = ({ id } = {}) => {
     updateCart((prev) => {

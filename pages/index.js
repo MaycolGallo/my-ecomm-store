@@ -5,22 +5,28 @@ import products from "../products.json";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function Home() {
-  const { subtotal, totalItems, checkout, addToCart } = useCart();
-  const notify = () =>
-    toast.success("Añadido al Carrito", {
-      style: {
-        borderRadius: "0.25rem",
-        backgroundColor: "#4B5563",
-        padding: "0.5rem 1rem 0.5rem 1rem",
-        color: "#F3F4F6",
-        fontSize: "1.125rem",
-        fontWeight: "500",
-      },
-      iconTheme: {
-        primary: "#059669",
-        secondary: "#F3F4F6",
-      },
+  const { addToCart } = useCart();
+  function savePayment(productId) {
+    addToCart({
+      id: productId,
     });
+    const notify = () =>
+      toast.success("Añadido al Carrito", {
+        style: {
+          borderRadius: "0.25rem",
+          backgroundColor: "#4B5563",
+          padding: "0.5rem 1rem 0.5rem 1rem",
+          color: "#F3F4F6",
+          fontSize: "1.125rem",
+          fontWeight: "500",
+        },
+        iconTheme: {
+          primary: "#059669",
+          secondary: "#F3F4F6",
+        },
+      });
+    notify();
+  }
 
   return (
     <>
@@ -57,10 +63,7 @@ export default function Home() {
                   <button
                     className="bg-indigo-600 focus:outline-none font-semibold duration-300 transform hover:scale-105 text-indigo-100 rounded px-4 py-2"
                     onClick={() => {
-                      addToCart({
-                        id: product.id,
-                      });
-                      notify();
+                      savePayment(product.id);
                     }}
                   >
                     Añadir al carrito

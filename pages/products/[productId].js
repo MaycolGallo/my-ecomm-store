@@ -6,21 +6,27 @@ import { useCart } from "../../hooks/use-cart";
 
 const Product = ({ product }) => {
   const { addToCart } = useCart();
-  const notify = () =>
-    toast.success("Añadido al Carrito", {
-      style: {
-        borderRadius: "0.25rem",
-        backgroundColor: "#4B5563",
-        padding: "0.5rem 1rem 0.5rem 1rem",
-        color: "#F3F4F6",
-        fontSize: "1.125rem",
-        fontWeight: "500",
-      },
-      iconTheme: {
-        primary: "#059669",
-        secondary: "#F3F4F6",
-      },
-    });
+  function savePayment(productId) {
+    addToCart({
+      id: productId
+    })
+    const notify = () =>
+      toast.success("Añadido al Carrito", {
+        style: {
+          borderRadius: "0.25rem",
+          backgroundColor: "#4B5563",
+          padding: "0.5rem 1rem 0.5rem 1rem",
+          color: "#F3F4F6",
+          fontSize: "1.125rem",
+          fontWeight: "500",
+        },
+        iconTheme: {
+          primary: "#059669",
+          secondary: "#F3F4F6",
+        },
+      });
+    notify()
+  }
   return (
     <div className="flex my-4 md:mt-10 justify-center">
       <Toaster position="bottom-center" reverseOrder={false} />
@@ -37,12 +43,9 @@ const Product = ({ product }) => {
             <p className="font-semibold text-lg">Precio: ${product.price}</p>
             <button
               onClick={() => {
-                addToCart({
-                  id: product.id,
-                });
-                notify();
+                savePayment(product.id)
               }}
-              className="bg-indigo-600 focus:outline-none transform transition duration-150 ease-in hover:scale-105 text-indigo-100 rounded-full text-lg font-semibold px-4 py-2"
+              className="bg-indigo-600 focus:outline-none w-full transform transition duration-150 ease-in hover:scale-105 text-indigo-100 rounded-full text-lg font-semibold px-4 py-2"
             >
               Comprar
             </button>

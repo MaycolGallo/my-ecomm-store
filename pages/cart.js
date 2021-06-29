@@ -21,20 +21,17 @@ const cart = () => {
       return (
         <form
           onSubmit={handleSubmit}
-          className="inline-flex items-center justify-center"
+          className="inline-flex w-full items-center justify-center"
         >
           <input
             type="number"
             name="quantity"
             min={0}
             defaultValue={item.quantity}
-            className="focus:outline-none ring-2 ring-blue-200"
+            className="focus:outline-none rounded-l-md px-2 sm:w-1/2 ring-2 ring-blue-200"
           />
           <button
-            className="bg-gray-800 text-sm text-gray-100 rounded px-2 py-1 "
-            onClick={() => {
-              console.log();
-            }}
+            className="bg-gray-800 text-sm border-2 border-transparent text-gray-100 rounded-r-md px-2 py-1 "
           >
             Update
           </button>
@@ -49,7 +46,7 @@ const cart = () => {
       title: product.Name,
     };
   });
-  console.log(data);
+  // console.log(data);
   const Body = ({ data }) => {
     return data.map((item) => (
       <tr key={item.id}>
