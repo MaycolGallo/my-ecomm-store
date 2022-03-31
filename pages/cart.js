@@ -31,7 +31,7 @@ const cart = () => {
             className="focus:outline-none rounded-l-md px-2 sm:w-1/2 ring-2 ring-blue-200"
           />
           <button
-            className="bg-gray-800 text-sm border-2 border-transparent text-gray-100 rounded-r-md px-2 py-1 "
+            className="bg-gray-800 text-sm border-2 border-transparent text-slate-100 rounded-r-md px-2 py-1 "
           >
             Update
           </button>

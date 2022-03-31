@@ -43,7 +43,7 @@ export default function Home() {
         <p className="font-semibold text-center my-4 text-lg">
           Tu tienda de tecnología online líder por precio, calidad y servicio
         </p>
-        <div className="grid gap-3 mx-3 lg:mx-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 mx-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <div
               key={product.id}
